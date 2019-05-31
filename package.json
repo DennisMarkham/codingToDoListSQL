@@ -1,0 +1,23 @@
+{
+  "name": "codingtodolistsql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "read.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DennisMarkham/codingToDoListSQL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DennisMarkham/codingToDoListSQL/issues"
+  },
+  "homepage": "https://github.com/DennisMarkham/codingToDoListSQL#readme",
+  "dependencies": {
+    "mysql": "^2.17.1"
+  }
+}
