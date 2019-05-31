@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+var inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -34,7 +35,7 @@ function ask(){
 }
 
 function insertion(inserted) {
-  connection.query("INSERT INTO todolist (task) VALUES ('" + addition + "');", function(err, res) {
+  connection.query("INSERT INTO todolist (task) VALUES ('" + inserted + "');", function(err, res) {
     if (err) throw err;
     
     // console.log(res[0].task);
