@@ -21,6 +21,45 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "write.html"));
 });
 
+
+
+app.get("/read", function(req, res) {
+
+  var todoArray = [];
+
+  connection.connect(function(err) {
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId);
+  read();
+});
+
+
+function read() {
+  connection.query("SELECT * FROM todolist;", function(err, result) {
+    if (err) throw err;
+    
+    console.log(result);
+    //okay, so I can get it to log on the command window, but getting it 
+    //to show up on the webpage, that's a different beast
+    //
+
+    // res.json(result[1].task);
+    //this prints the second task, but I would need to know how many ti
+
+    var i;
+for (i = 0; i < result.length; i++) { 
+  res.json(result[i].task);
+}
+//this only prints the first one.  Weird.
+
+    connection.end();
+  });
+}
+
+});
+
+
+
 app.get("/write", function(req, res) {
   res.sendFile(path.join(__dirname, "write.html"));
 });
