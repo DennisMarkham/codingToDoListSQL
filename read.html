@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To Do List</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body onload = "showList()">
+
+<ol></ol>
+
+  <script type="text/javascript">
+    function showList(){
+  
+
+      $.get("/api/toDoList", function(data) {
+        console.log(data);
+
+        for (var i = 0; i < data.length; i++) 
+        {
+          $("ol").append("<li>" + data[i] + "</li>");
+    }
+        
+        //this shows up on the google chrome console.  BUT HOW DOES IT GET DATA FROM THE SERVER!?
+        
+      });
+    };
+  </script>
+</body>
+</html>

@@ -25,7 +25,9 @@ app.get("/", function(req, res) {
 
 app.get("/read", function(req, res) {
 
-  var todoArray = [];
+res.sendFile(path.join(__dirname, "read.html"));
+
+var todoArray = [];
 
   connection.connect(function(err) {
   if (err) throw err;
@@ -45,18 +47,43 @@ function read() {
 
     // res.json(result[1].task);
     //this prints the second task, but I would need to know how many ti
-
+    // connection.query("SELECT id FROM todolist;", function (err, idList){
     var i;
-for (i = 0; i < result.length; i++) { 
-  res.json(result[i].task);
+    // console.log(idList.length);
+    // var maxid = idList.length;
+    //okay so I got an array of ids, then got length to get the maxid
+    //but it still doesn't print out stuff to the page
+    //even though the length of the 
+    //waitt, all this is useless.
+
+    for (i = 0; i < result.length; i++) { 
+  console.log(i + 1 + ") " + result[i].task);
+  todoArray.push(result[i].task)
+  //okay, so we've put all the tasks in an array.  Now if the Star Wars program
+  //is any indication, I have to transfer this array to the read.html page, the same
+  //way Star Wars transfers it to the view.html page.
 }
+console.log("This is the todo array " + todoArray)
+
+// todoArrayObject = [{item: 'bouncing balls'}]
+app.get("/api/toDoList", function(req, res) {
+  return res.json(todoArray);
+});
+
+// for (i = 0; i < result.length; i++) { 
+//   res.json(result[i].task);
+// }
 //this only prints the first one.  Weird.
 
     connection.end();
+  // });
   });
 }
 
 });
+
+
+
 
 
 
