@@ -11,9 +11,9 @@
 </head>
 
 
-<form>
+<form action = "read.html">
 <input type = "text" id = "newItem"></input>
-<button id = "add-btn">add item</button> 
+<button id = "add-btn" href = "read.html">add item</button> 
 </form>
 
 <script type="text/javascript">
@@ -26,7 +26,7 @@
       $.post("/api/new", newItem)
       .then(function(data) {
         console.log(data);
-        alert("Adding character...");
+        alert("Adding task...");
       });
     });
   </script>

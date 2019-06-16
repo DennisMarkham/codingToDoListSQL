@@ -29,6 +29,8 @@ res.sendFile(path.join(__dirname, "read.html"));
 
 var todoArray = [];
 
+//I think this "connect" is the handshake.  I need to make sure this only activates
+//if the handshake has not already been invoked
   connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
@@ -75,7 +77,7 @@ app.get("/api/toDoList", function(req, res) {
 // }
 //this only prints the first one.  Weird.
 
-    connection.end();
+    // connection.end();
   // });
   });
 }
@@ -130,10 +132,41 @@ function insertion(inserted) {
     
     // console.log(res[0].task);
     connection.end();
+
   });
 }
 
 });
+
+app.post("/api/delete", function(req, res) {
+
+  var item2delete = req.body;
+  //NOTE I MAY NEED TO MAKE item2delete AN OBJECT FOR THIS TO WORK
+  console.log("The server has recieve the following:")
+  console.log(item2delete);
+
+//   connection.connect(function(err) {
+//   if (err) throw err;
+//   console.log("connected as id " + connection.threadId);
+//   deletion();
+// });
+
+deletion();
+
+function deletion() {
+  connection.query("DELETE FROM todolist WHERE task ='" + item2delete.deleteThis + "';", function(err, res) {
+    if (err) throw err;
+    
+    // console.log(res[0].task);
+    connection.end();
+
+  });
+}
+
+});
+
+
+
 
 var connection = mysql.createConnection({
   host: "localhost",

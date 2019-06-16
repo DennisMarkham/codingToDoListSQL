@@ -14,6 +14,8 @@
 <ol></ol>
 
   <script type="text/javascript">
+     
+
     function showList(){
   
 
@@ -22,13 +24,25 @@
 
         for (var i = 0; i < data.length; i++) 
         {
-          $("ol").append("<li>" + data[i] + "</li>");
+          $("ol").append("<li>" + data[i] + "<button id ='" + i + "' value = 'x'></button>" + "</li>");
     }
-        
-        //this shows up on the google chrome console.  BUT HOW DOES IT GET DATA FROM THE SERVER!?
+      
+       
         
       });
     };
+
+$('ol').on('click', 'button', function(){
+console.log("This is the item I want to delete: " + $(this).parent().text());
+var item2delete = {deleteThis: $(this).parent().text()};
+//NOTE I MAY NEED TO MAKE item2delete an object for this to work.
+
+ $.post("/api/delete", item2delete).then(function(data) {
+        console.log(data);
+        alert("Deleting item...");
+      });
+});
+
   </script>
 </body>
 </html>
