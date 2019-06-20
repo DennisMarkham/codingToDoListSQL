@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To Do List</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body onload = "showList()">
+
+<ol></ol>
+
+<form action = "read.html">
+<input type = "text" id = "newItem"></input>
+<button id = "add-btn" href = "read.html">add item</button> 
+</form>
+
+<button onclick = "refresh()">Refresh</button>
+  <script type="text/javascript">
+     
+    function refresh()
+    {
+      $("ol").empty();
+      showList();
+    }
+
+    function showList(){
+  
+
+      $.get("/api/toDoList", function(data) {
+        console.log(data);
+
+        for (var i = 0; i < data.length; i++) 
+        {
+          $("ol").append("<li>" + data[i] + "<button id ='" + i + "'><span class='glyphicon glyphicon-remove'></span></button>" + "</li>");
+    }
+      
+       
+        
+      });
+    };
+
+$('ol').on('click', 'button', function(){
+console.log("This is the item I want to delete: " + $(this).parent().text());
+var item2delete = {deleteThis: $(this).parent().text()};
+//NOTE I MAY NEED TO MAKE item2delete an object for this to work.
+$(this).parent().remove();
+
+ $.post("/api/delete", item2delete).then(function(data) {
+        console.log(data);
+        alert("Deleting item...");
+      });
+});
+
+
+$("#add-btn").on("click", function(event) {
+      event.preventDefault();
+      var newItem = {task: $("#newItem").val()}
+       
+    
+      $.post("/api/new", newItem)
+      .then(function(data) {
+        console.log(data);
+        alert("Adding task...");
+      });
+    });
+
+  </script>
+</body>
+</html>

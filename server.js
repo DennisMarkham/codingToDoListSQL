@@ -16,18 +16,60 @@ app.use(bodyParser.json());
 // Set our port to 8080
 
 
+var todoArray = [];
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "write.html"));
+  res.sendFile(path.join(__dirname, "readnwrite.html"));
+  
+
+connection.connect(function(err){
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId);
+  read();
 });
 
+function read() {
+  connection.query("SELECT * FROM todolist;", function(err, result) {
+    if (err) throw err;
+    
+    console.log(result);
+ 
+    var i;
+   
+
+    for (i = 0; i < result.length; i++) { 
+  console.log(i + 1 + ") " + result[i].task);
+  todoArray.push(result[i].task)
+ 
+}
+console.log("This is the todo array " + todoArray)
+
+app.get("/api/toDoList", function(req, res) {
+  return res.json(todoArray);
+});
+
+
+
+  });
+}
+
+});
+
+
+
+//*************
+//**************
+//*************
+//*************
+//**************
+//*************
 
 
 app.get("/read", function(req, res) {
 
 res.sendFile(path.join(__dirname, "read.html"));
 
-var todoArray = [];
+// var todoArray = [];
 
 //I think this "connect" is the handshake.  I need to make sure this only activates
 //if the handshake has not already been invoked
@@ -119,11 +161,11 @@ app.post("/api/new", function(req, res) {
 
   console.log(newItem.task);
 
-  connection.connect(function(err) {
-  if (err) throw err;
-  console.log("connected as id " + connection.threadId);
+  // connection.connect(function(err) {
+  // if (err) throw err;
+  // console.log("connected as id " + connection.threadId);
   insertion();
-});
+// });
 
 
 function insertion(inserted) {
