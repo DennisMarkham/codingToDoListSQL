@@ -13,6 +13,9 @@
 
 <ol></ol>
 
+<button id = "rButton" onclick="rand()">Choose Random</button>
+<span id = "rSpan"></span>
+
 <form action = "read.html">
 <input type = "text" id = "newItem"></input>
 <button id = "add-btn" href = "read.html">add item</button> 
@@ -24,6 +27,7 @@
     function refresh()
     {
       $("ol").empty();
+      $("#rSpan").empty();
       showList();
     }
 
@@ -42,6 +46,17 @@
         
       });
     };
+
+function rand(){
+  
+
+      $.get("/api/toDoList", function(data) {
+        var randNum = Math.floor(Math.random() * data.length);
+
+        $("#rSpan").append(data[randNum]);
+      });
+    };
+
 
 $('ol').on('click', 'button', function(){
 console.log("This is the item I want to delete: " + $(this).parent().text());
