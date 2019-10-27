@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 var todoArray = [];
 
 app.get("/", function(req, res) {
+  //connection.end();
   res.sendFile(path.join(__dirname, "readnwrite.html"));
   
 
@@ -65,75 +66,13 @@ app.get("/api/toDoList", function(req, res) {
 //*************
 
 
-app.get("/read", function(req, res) {
-
-res.sendFile(path.join(__dirname, "read.html"));
-
-// var todoArray = [];
-
-//I think this "connect" is the handshake.  I need to make sure this only activates
-//if the handshake has not already been invoked
-  connection.connect(function(err) {
-  if (err) throw err;
-  console.log("connected as id " + connection.threadId);
-  read();
-});
-
-
-function read() {
-  connection.query("SELECT * FROM todolist;", function(err, result) {
-    if (err) throw err;
-    
-    console.log(result);
-    //okay, so I can get it to log on the command window, but getting it 
-    //to show up on the webpage, that's a different beast
-    //
-
-    // res.json(result[1].task);
-    //this prints the second task, but I would need to know how many ti
-    // connection.query("SELECT id FROM todolist;", function (err, idList){
-    var i;
-    // console.log(idList.length);
-    // var maxid = idList.length;
-    //okay so I got an array of ids, then got length to get the maxid
-    //but it still doesn't print out stuff to the page
-    //even though the length of the 
-    //waitt, all this is useless.
-
-    for (i = 0; i < result.length; i++) { 
-  console.log(i + 1 + ") " + result[i].task);
-  todoArray.push(result[i].task)
-  //okay, so we've put all the tasks in an array.  Now if the Star Wars program
-  //is any indication, I have to transfer this array to the read.html page, the same
-  //way Star Wars transfers it to the view.html page.
-}
-console.log("This is the todo array " + todoArray)
-
-// todoArrayObject = [{item: 'bouncing balls'}]
-app.get("/api/toDoList", function(req, res) {
-  return res.json(todoArray);
-});
-
-// for (i = 0; i < result.length; i++) { 
-//   res.json(result[i].task);
-// }
-//this only prints the first one.  Weird.
-
-    // connection.end();
-  // });
-  });
-}
-
-});
 
 
 
 
 
 
-app.get("/write", function(req, res) {
-  res.sendFile(path.join(__dirname, "write.html"));
-});
+
 
 app.get("/test", function(req, res) {
 
@@ -173,7 +112,7 @@ function insertion(inserted) {
     if (err) throw err;
     
     // console.log(res[0].task);
-    connection.end();
+    //connection.end();
 
   });
 }
@@ -200,7 +139,7 @@ function deletion() {
     if (err) throw err;
     
     // console.log(res[0].task);
-    connection.end();
+    //connection.end();
 
   });
 }

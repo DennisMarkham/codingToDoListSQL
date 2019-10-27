@@ -18,7 +18,7 @@
 
 <form action = "read.html">
 <input type = "text" id = "newItem"></input>
-<button id = "add-btn" href = "read.html">add item</button> 
+<button id = "add-btn">add item</button> 
 </form>
 
 <button onclick = "refresh()">Refresh</button>
@@ -28,7 +28,7 @@
     {
       $("ol").empty();
       $("#rSpan").empty();
-      showList();
+      $.get("/");
     }
 
     function showList(){
@@ -73,6 +73,11 @@ $(this).parent().remove();
 
 $("#add-btn").on("click", function(event) {
       event.preventDefault();
+
+      $("ol").append("<li>" + $("#newItem").val() + "<button id ='" + 600 + "'><span class='glyphicon glyphicon-remove'></span></button>" + "</li>");
+       //600 has replaced 'i'.  This is a quick patch work to give new items an id.  The problem is it only makes
+//possible to add one new item without two items having the same id.
+      
       var newItem = {task: $("#newItem").val()}
        
     
