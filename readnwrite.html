@@ -11,7 +11,7 @@
 </head>
 <body onload = "showList()">
 
-<ol></ol>
+<ol id = "list"></ol>
 
 <button id = "rButton" onclick="rand()">Choose Random</button>
 <span id = "rSpan"></span>
@@ -74,9 +74,18 @@ $(this).parent().remove();
 $("#add-btn").on("click", function(event) {
       event.preventDefault();
 
-      $("ol").append("<li>" + $("#newItem").val() + "<button id ='" + 600 + "'><span class='glyphicon glyphicon-remove'></span></button>" + "</li>");
-       //600 has replaced 'i'.  This is a quick patch work to give new items an id.  The problem is it only makes
-//possible to add one new item without two items having the same id.
+      //uses the childElementCount function to give a new data to the element.  Note ids
+      //start at 0, which is why this works
+     
+      var c = document.getElementById("list").childElementCount;
+
+      console.log(c);
+
+      $("ol").append("<li>" + $("#newItem").val() + "<button id ='" + c + "'><span class='glyphicon glyphicon-remove'></span></button>" + "</li>");
+
+      
+
+
       
       var newItem = {task: $("#newItem").val()}
        
