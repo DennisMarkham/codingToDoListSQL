@@ -24,12 +24,7 @@
 
   <script type="text/javascript">
      
-    function refresh()
-    {
-      $("ol").empty();
-      $("#rSpan").empty();
-      $.get("/");
-    }
+ 
 
     function showList(){
   
@@ -50,11 +45,19 @@
 function rand(){
   
 
-      $.get("/api/toDoList", function(data) {
-        var randNum = Math.floor(Math.random() * data.length);
+//random still not functional, experimenting
 
-        $("#rSpan").append(data[randNum]);
-      });
+      // $.get("/api/toDoList", function(data) {
+        
+
+      //   $("#rSpan").text(data[randNum]);
+      // });
+
+var listArray = document.getElementsByTagName("li");
+
+var randNum = Math.floor(Math.random() * listArray.length);
+
+$("#rSpan").text(listArray[randNum].innerText);
     };
 
 
